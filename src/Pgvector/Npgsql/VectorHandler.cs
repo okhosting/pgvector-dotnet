@@ -44,42 +44,23 @@ namespace Pgvector.Npgsql
         public override int ValidateObjectAndGetLength(object value, ref NpgsqlLengthCache lengthCache, NpgsqlParameter parameter)
         {
             if (value is Vector converted)
-            {
                 return ValidateAndGetLength(converted, parameter);
-            }
-            else if (value is DBNull)
-            {
+
+            if (value is DBNull || value is null)
                 return 0;
-            }
-            else if (value == null)
-            {
-                return 0;
-            }
-            else
-            {
-                throw new InvalidCastException($"Can't write CLR type {value.GetType()} with handler type VectorHandler");
-            }
+
+            throw new InvalidCastException($"Can't write CLR type {value.GetType()} with handler type VectorHandler");
         }
 
         public override Task WriteObjectWithLength(object value, NpgsqlWriteBuffer buf, NpgsqlLengthCache lengthCache, NpgsqlParameter parameter, bool async, CancellationToken cancellationToken = default)
         {
             if (value is Vector converted)
-            {
                 return WriteWithLength(converted, buf, lengthCache, parameter, async, cancellationToken);
-            }
-            else if (value is DBNull)
-            {
-                return WriteWithLength(DBNull.Value, buf, lengthCache, parameter, async, cancellationToken);
-            }
-            else if (value == null)
-            {
-                return WriteWithLength(DBNull.Value, buf, lengthCache, parameter, async, cancellationToken);
-            }
-            else
-            {
-                throw new InvalidCastException($"Can't write CLR type {value.GetType()} with handler type VectorHandler");
-            }
-        }
 
+            if (value is DBNull || value is null)
+                return WriteWithLength(DBNull.Value, buf, lengthCache, parameter, async, cancellationToken);
+
+            throw new InvalidCastException($"Can't write CLR type {value.GetType()} with handler type VectorHandler");
+        }
     }
 }

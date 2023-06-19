@@ -2,24 +2,22 @@
 
   <PropertyGroup>
     <PackageId>Pgvector.Dapper</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>ankane</Authors>
     <Description>pgvector support for Dapper</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/pgvector/pgvector-dotnet</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="\" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\Pgvector\Pgvector.csproj" />
-    <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="Dapper" Version="2.0.4" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8" />
   </ItemGroup>
 
 </Project>

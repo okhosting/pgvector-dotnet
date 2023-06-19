@@ -16,8 +16,7 @@ namespace Pgvector.Npgsql
             _databaseInfo = connector.DatabaseInfo;
 
             var pgVectorType = PgType("vector");
-
-            if (!(pgVectorType is null))
+            if (pgVectorType != null)
             {
                 _vectorHandler = new VectorHandler(pgVectorType);
             }
@@ -25,36 +24,27 @@ namespace Pgvector.Npgsql
 
         public override NpgsqlTypeHandler ResolveByDataTypeName(string typeName)
         {
-            switch (typeName)
-            {
-                case "vector":
-                    return _vectorHandler;
-                default:
-                    return null;
-            };
+            if (typeName == "vector")
+                return _vectorHandler;
+
+            return null;
         }
 
         public override NpgsqlTypeHandler ResolveByClrType(Type type)
         {
             var dataTypeName = ClrTypeToDataTypeName(type);
-
             if (dataTypeName != null)
             {
                 var handler = ResolveByDataTypeName(dataTypeName);
-
                 if (handler != null)
-                {
                     return handler;
-                }
             }
 
             return null;
         }
 
         public override TypeMappingInfo GetMappingByDataTypeName(string dataTypeName)
-        {
-            return DoGetMappingByDataTypeName(dataTypeName);
-        }
+            => DoGetMappingByDataTypeName(dataTypeName);
 
         internal static string ClrTypeToDataTypeName(Type type)
         {
@@ -67,14 +57,11 @@ namespace Pgvector.Npgsql
         }
 
         internal static TypeMappingInfo DoGetMappingByDataTypeName(string dataTypeName)
-        { 
-            switch(dataTypeName)
-            {
-                case "vector":
-                    return new TypeMappingInfo(NpgsqlDbType.Unknown, "vector");
-                default:
-                    return null;
-            }
+        {
+            if (dataTypeName == "vector")
+                return new TypeMappingInfo(NpgsqlDbType.Unknown, "vector");
+
+            return null;
         }
 
         PostgresType PgType(string pgTypeName) => _databaseInfo.TryGetPostgresTypeByName(pgTypeName, out var pgType) ? pgType : null;
