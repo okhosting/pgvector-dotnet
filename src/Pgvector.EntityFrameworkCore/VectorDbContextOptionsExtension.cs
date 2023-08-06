@@ -11,7 +11,9 @@ public class VectorDbContextOptionsExtension : IDbContextOptionsExtension
     public virtual DbContextOptionsExtensionInfo Info => _info ??= new ExtensionInfo(this);
 
     public void ApplyServices(IServiceCollection services)
-        => services.AddSingleton<IRelationalTypeMappingSourcePlugin, VectorTypeMappingSourcePlugin>();
+    {
+        services.AddSingleton<IRelationalTypeMappingSourcePlugin, VectorTypeMappingSourcePlugin>();
+    }
 
     public void Validate(IDbContextOptions options) { }
 
