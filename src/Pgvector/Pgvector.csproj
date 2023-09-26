@@ -4,6 +4,7 @@
     <PackageId>Pgvector</PackageId>
     <Version>0.1.3</Version>
     <Authors>ankane</Authors>
+	<LangVersion>10.0</LangVersion>
     <Description>pgvector support for C#</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/pgvector/pgvector-dotnet</PackageProjectUrl>
