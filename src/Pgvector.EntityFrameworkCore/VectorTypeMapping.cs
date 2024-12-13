@@ -4,15 +4,11 @@ using NpgsqlTypes;
 
 namespace Pgvector.EntityFrameworkCore;
 
-public class VectorTypeMapping : RelationalTypeMapping
+public class VectorTypeMapping : NpgsqlTypeMapping
 {
-    public static VectorTypeMapping Default { get; } = new();
+    public VectorTypeMapping(string storeType) : base(storeType, typeof(Vector), NpgsqlDbType.Unknown) { }
 
-    public VectorTypeMapping() : base("vector", typeof(Vector)) { }
-
-    public VectorTypeMapping(string storeType) : base(storeType, typeof(Vector)) { }
-
-    protected VectorTypeMapping(RelationalTypeMappingParameters parameters) : base(parameters) { }
+    protected VectorTypeMapping(RelationalTypeMappingParameters parameters) : base(parameters, NpgsqlDbType.Unknown) { }
 
     protected override RelationalTypeMapping Clone(RelationalTypeMappingParameters parameters)
         => new VectorTypeMapping(parameters);

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\src\Pgvector\Pgvector.csproj" />
     <ProjectReference Include="..\..\src\Pgvector.Dapper\Pgvector.Dapper.csproj" />
     <ProjectReference Include="..\..\src\Pgvector.EntityFrameworkCore\Pgvector.EntityFrameworkCore.csproj" />
+    <PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
   </ItemGroup>
 
 </Project>

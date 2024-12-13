@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
-using Pgvector.EntityFrameworkCore;
 using Pgvector.Npgsql;
 
-namespace Microsoft.EntityFrameworkCore;
+namespace Pgvector.EntityFrameworkCore;
 
 public static class VectorDbContextOptionsBuilderExtensions
 {
