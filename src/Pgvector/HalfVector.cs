@@ -4,32 +4,32 @@ using System.Linq;
 
 namespace Pgvector;
 
-public class Vector : IEquatable<Vector>
+public class HalfVector : IEquatable<HalfVector>
 {
-    public ReadOnlyMemory<float> Memory { get; }
+    public ReadOnlyMemory<Half> Memory { get; }
 
-    public Vector(ReadOnlyMemory<float> v)
+    public HalfVector(ReadOnlyMemory<Half> v)
         => Memory = v;
 
-    public Vector(string s)
-        => Memory = Array.ConvertAll(s.Substring(1, s.Length - 2).Split(','), v => float.Parse(v, CultureInfo.InvariantCulture));
+    public HalfVector(string s)
+        => Memory = Array.ConvertAll(s.Substring(1, s.Length - 2).Split(','), v => Half.Parse(v, CultureInfo.InvariantCulture));
 
     public override string ToString()
         => string.Concat("[", string.Join(",", Memory.ToArray().Select(v => v.ToString(CultureInfo.InvariantCulture))), "]");
 
-    public float[] ToArray()
+    public Half[] ToArray()
         => Memory.ToArray();
 
-    public bool Equals(Vector? other)
+    public bool Equals(HalfVector? other)
         => other is not null && Memory.Span.SequenceEqual(other.Memory.Span);
 
     public override bool Equals(object? obj)
-        => obj is Vector vector && Equals(vector);
+        => obj is HalfVector vector && Equals(vector);
 
-    public static bool operator ==(Vector? x, Vector? y)
+    public static bool operator ==(HalfVector? x, HalfVector? y)
         => (x is null && y is null) || (x is not null && x.Equals(y));
 
-    public static bool operator !=(Vector? x, Vector? y) => !(x == y);
+    public static bool operator !=(HalfVector? x, HalfVector? y) => !(x == y);
 
     public override int GetHashCode()
     {
